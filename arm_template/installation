@@ -1,1 +1,21 @@
+$PSVersionTable.PSVersion
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+
+
+Define pull secret
+$rhosPullSecret= Get-Content .\pull-secret.txt -Raw # the pull secret text that was obtained from the Red Hat OpenShift Cluster Manager website
+
+
+Define resource providers
+$resourceGroup="aro-rg"	     # the new resource group for the cluster
+$location="eastus"    		 # the location of the new ARO cluster
+$domain="mydomain"           # the domain prefix for the cluster  
+$aroClusterName="cluster"    # the name of the cluster
+
+Create the new resource group 
+Register-AzResourceProvider -ProviderNamespace Microsoft.RedHatOpenShift
+Register-AzResourceProvider -ProviderNamespace Microsoft.Compute
+Register-AzResourceProvider -ProviderNamespace Microsoft.Storage
+Register-AzResourceProvider -ProviderNamespace Microsoft.Authorization
 
