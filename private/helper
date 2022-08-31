@@ -1,0 +1,33 @@
+Create subnet for helper node
+
+az network vnet subnet create \
+--resource-group $RESOURCEGROUP \
+--vnet-name aro-lbercasi-vnet \
+--name manage-subnet \
+--address-prefixes 10.0.1.0/27 \
+--service-endpoints Microsoft.ContainerRegistry
+
+install oc cli 
+ curl -O https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.10.20/openshift-client-linux-4.10.20.tar.gz
+
+ tar -xvf openshift-client-linux-4.10.20.tar.gz 
+ echo $PATH
+ sudo cp oc kubectl /usr/local/bin
+ oc version
+ oc login https://api.sks7qpal.eastus.aroapp.io:6443/
+ 
+install gui for linux ubuntu
+
+ sudo apt-get update
+ sudo DEBIAN_FRONTEND=noninteractive apt-get -y install xfce4
+ sudo apt install xfce4-session
+ sudo apt-get -y install xrdp
+ sudo systemctl enable xrdp
+ sudo adduser xrdp ssl-cert
+ echo xfce4-session >~/.xsession
+ sudo service xrdp restart
+ sudo passwd azureuser
+
+install chrome
+ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+ sudo apt install ./google-chrome-stable_current_amd64.deb
