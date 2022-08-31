@@ -1,0 +1,64 @@
+Register resource providers 
+
+az account set --subscription <SUBSCRIPTION ID>
+az provider register -n Microsoft.RedHatOpenShift --wait
+az provider register -n Microsoft.Compute --wait
+az provider register -n Microsoft.Storage --waitaz provider register -n Microsoft.Storage --wait
+
+Set shell environment  variables 
+
+LOCATION=eastus                 # the location of your cluster
+RESOURCEGROUP="v4-$LOCATION"    # the name of the resource group where you want to create your cluster
+CLUSTER=aro-cluster             # the name of your cluster
+
+Create resource group 
+
+az group create --name $RESOURCEGROUP --location $LOCATION
+
+Create virtual network
+
+az network vnet create \
+--resource-group $RESOURCEGROUP \
+--name aro-vnet \
+--address-prefixes 10.0.0.0/22
+
+Add empty subnet for the master node
+
+az network vnet subnet create \
+--resource-group $RESOURCEGROUP \
+--vnet-name aro-vnet \
+--name master-subnet \
+--address-prefixes 10.0.0.0/23 \
+--service-endpoints Microsoft.ContainerRegistry
+
+Add empty subnet for the worker nodes
+
+az network vnet subnet create \
+--resource-group $RESOURCEGROUP \
+--vnet-name aro-vnet \
+--name worker-subnet \
+--address-prefixes 10.0.2.0/23 \
+--service-endpoints Microsoft.ContainerRegistry
+
+Disable subnet private endpoint policies 
+
+az network vnet subnet update \
+--name master-subnet \
+--resource-group $RESOURCEGROUP \
+--vnet-name aro-vnet \
+--disable-private-link-service-network-policies true
+
+Create the cluster 
+
+az aro create \
+  --resource-group $RESOURCEGROUP \
+  --name $CLUSTER \
+  --vnet aro-vnet \
+  --master-subnet master-subnet \
+  --worker-subnet worker-subnet \
+  --apiserver-visibility Private \
+  --ingress-visibility Private
+  # --domain foo.example.com # [OPTIONAL] custom domain
+  # --pull-secret @pull-secret.txt # [OPTIONAL]
+  
+  
