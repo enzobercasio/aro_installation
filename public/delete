@@ -1,0 +1,15 @@
+Sign in to Azure
+
+az login
+
+Delete the cluster 
+
+Set shell environment variables
+
+CLUSTER=yourclustername
+RESOURCEGROUP=yourresourcegroup
+
+Delete the cluster 
+
+az aro delete --resource-group $RESOURCEGROUP --name $CLUSTER
+
