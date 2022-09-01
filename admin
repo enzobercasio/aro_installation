@@ -1,0 +1,11 @@
+List ARO credential
+az aro list-credentials --name $CLUSTER --resource-group $RESOURCEGROUP
+
+List ARO Console URL
+az aro show --name $CLUSTER --resource-group $RESOURCEGROUP --query "consoleProfile.url" -o tsv
+
+List ARO API URL
+az aro show -g $RESOURCEGROUP -n $CLUSTER --query apiserverProfile.url -o tsv
+
+Show cluster
+az aro show -n $CLUSTER -g $RESOURCEGROUP
