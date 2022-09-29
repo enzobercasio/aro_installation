@@ -1,10 +1,25 @@
-Register the resource providers
+# Register the resource providers if not done yet.
 
+# Login to Azure 
+az login 
+
+# set subscription to use 
 az account set --subscription <SUBSCRIPTION ID>
+
+# verify the subscription set 
+az account set -s "subscription_name" 
+
+# register the required providers 
 az provider register -n Microsoft.RedHatOpenShift --wait
 az provider register -n Microsoft.Compute --wait
 az provider register -n Microsoft.Storage --wait
 az provider register -n Microsoft.Authorization --wait
+
+# verify the providers registered 
+az provider show -n Microsoft.RedHatOpenShift --query registrationState
+az provider show -n Microsoft.Compute --query registrationState
+az provider show -n Microsoft.Storage --query registrationState
+az provider show -n Microsoft.Authorization --query registrationState
 
 Create a vierual network containing two empty subnets
 
