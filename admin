@@ -1,11 +1,17 @@
-List ARO credential
+# List ARO credential
 az aro list-credentials --name $CLUSTER --resource-group $RESOURCEGROUP
 
-List ARO Console URL
+#to get the login user name
+az aro list-credentials -g $clusterResourceGroup -n $clusterName --query 'kubeadminUsername' -o tsv
+
+#to get the admin user password
+az aro list-credentials -g $clusterResourceGroup -n $clusterName --query 'kubeadminPassword' -o tsv
+
+# List ARO Console URL
 az aro show --name $CLUSTER --resource-group $RESOURCEGROUP --query "consoleProfile.url" -o tsv
 
-List ARO API URL
+# List ARO API URL
 az aro show -g $RESOURCEGROUP -n $CLUSTER --query apiserverProfile.url -o tsv
 
-Show cluster
+# Show cluster
 az aro show -n $CLUSTER -g $RESOURCEGROUP
