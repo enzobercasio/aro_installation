@@ -1,12 +1,12 @@
-Connect to the cluster
+# Connect to the cluster
 
-Get kubeadmin credential
+# Get kubeadmin credential
 az aro list-credentials \
   --name $CLUSTER \
   --resource-group $RESOURCEGROUP
   
 
-Get console url
+# Get console url
 
 az aro show \
     --name $CLUSTER \
@@ -14,7 +14,7 @@ az aro show \
     --query "consoleProfile.url" -o tsv
     
     
-Install Openshift CLI
+# Install Openshift CLI
 
 cd ~
 wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
@@ -23,7 +23,7 @@ mkdir openshift
 tar -zxvf openshift-client-linux.tar.gz -C openshift
 echo 'export PATH=$PATH:~/openshift' >> ~/.bashrc && source ~/.bashrc
 
-Connect using the cli
+# Connect using the cli
 
 apiServer=$(az aro show -g $RESOURCEGROUP -n $CLUSTER --query apiserverProfile.url -o tsv)
 
