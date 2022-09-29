@@ -20,21 +20,19 @@ az account set -s "subscription_name"
 #check the correct subscription is set as default
 az account list
 
-#then Register the required 3 providers by running following commands.
+# verify the subscription set 
+az account set -s "subscription_name" 
 
-  #Register the Microsoft.RedHatOpenShift resource provider:
-  az provider register -n Microsoft.RedHatOpenShift --wait
-  #check the provider is registered or not
-  az provider show -n Microsoft.RedHatOpenShift --query registrationState
-  
-  #Register the Microsoft.Compute resource provider:
-  az provider register -n Microsoft.Compute --wait
-  #check the provider is registered or not
-  az provider show -n Microsoft.Compute --query registrationState
-  
-  #Register the Microsoft.Storage resource provider:
-  az provider register -n Microsoft.Storage --wait
-  #check the provider is registered or not
-  az provider show -n Microsoft.Storage --query registrationState
+# register the required providers 
+az provider register -n Microsoft.RedHatOpenShift --wait
+az provider register -n Microsoft.Compute --wait
+az provider register -n Microsoft.Storage --wait
+az provider register -n Microsoft.Authorization --wait
+
+# verify the providers registered 
+az provider show -n Microsoft.RedHatOpenShift --query registrationState
+az provider show -n Microsoft.Compute --query registrationState
+az provider show -n Microsoft.Storage --query registrationState
+az provider show -n Microsoft.Authorization --query registrationState
 
 A workstation computer or laptop where you can install all the management software tools to manage Aro Cluster.
