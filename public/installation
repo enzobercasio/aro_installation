@@ -21,20 +21,21 @@ az provider show -n Microsoft.Compute --query registrationState
 az provider show -n Microsoft.Storage --query registrationState
 az provider show -n Microsoft.Authorization --query registrationState
 
-Create a vierual network containing two empty subnets
 
-Set shell environment variables: 
+# create a virtual network containing two empty subnets
+
+# Set shell environment variables: 
 LOCATION=eastus                 # the location of your cluster
 RESOURCEGROUP=aro-rg            # the name of the resource group where you want to create your cluster
-CLUSTER=cluster                 # the name of your cluster
+CLUSTER=clustername                # the name of your cluster
 
-Create resource group
+# create resource group
 
 az group create \
   --name $RESOURCEGROUP \
   --location $LOCATION
   
-Create virtual network
+# create virtual network
 
 az network vnet create \
    --resource-group $RESOURCEGROUP \
@@ -42,7 +43,7 @@ az network vnet create \
    --address-prefixes 10.0.0.0/22
    
    
-Add empty subnet for the master nodes
+# add empty subnet for the master nodes with service endpoint to allow access to container registry
 
 az network vnet subnet create \
   --resource-group $RESOURCEGROUP \
@@ -51,7 +52,7 @@ az network vnet subnet create \
   --address-prefixes 10.0.0.0/23 \
   --service-endpoints Microsoft.ContainerRegistry
   
-  Add empty subnet for the worker nodes
+# add empty subnet for the worker nodes with service endpoint to allow access to container registry
   
   az network vnet subnet create \
   --resource-group $RESOURCEGROUP \
@@ -60,7 +61,7 @@ az network vnet subnet create \
   --address-prefixes 10.0.2.0/23 \
   --service-endpoints Microsoft.ContainerRegistry
   
-  Disable subnet private endpoint policies 
+# disable subnet private endpoint policies 
   
   az network vnet subnet update \
   --name master-subnet \
@@ -68,14 +69,17 @@ az network vnet subnet create \
   --vnet-name aro-vnet \
   --disable-private-link-service-network-policies true
   
-  Create the cluster
+ # create the cluster
   
   az aro create \
   --resource-group $RESOURCEGROUP \
   --name $CLUSTER \
   --vnet aro-vnet \
   --master-subnet master-subnet \
-  --worker-subnet worker-subnet
+  --worker-subnet worker-subnet \
+  --pull-secret @pull-secret.txt   ### optional
+  
+  
   
   
   
