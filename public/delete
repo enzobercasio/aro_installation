@@ -2,6 +2,8 @@
 
 az login
 
+az account show
+
 # Delete the cluster 
 
 # Set shell environment variables
@@ -10,7 +12,7 @@ CLUSTER=yourclustername
 RESOURCEGROUP=yourresourcegroup
 
 #get service prinicipal id
-clientid=az aro show -g $clusterResourceGroup -n $clusterName --query "servicePrincipalProfile.clientId" -o tsv
+clientid=$(az aro show -g $RESOURCEGROUP -n $CLUSTER --query "servicePrincipalProfile.clientId" -o tsv)
 
 # Delete the cluster 
 

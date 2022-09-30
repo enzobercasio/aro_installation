@@ -1,0 +1,82 @@
+{
+  "apiserverProfile": {
+    "ip": "20.212.18.191",
+    "url": "https://api.i2dsdh87.southeastasia.aroapp.io:6443/",
+    "visibility": "Public"
+  },
+  "clusterProfile": {
+    "domain": "i2dsdh87",
+    "fipsValidatedModules": "Disabled",
+    "pullSecret": null,
+    "resourceGroupId": "/subscriptions/eef1686d-b711-49a8-b670-50f6677beea2/resourcegroups/aro-i2dsdh87",
+    "version": "4.10.20"
+  },
+  "consoleProfile": {
+    "url": "https://console-openshift-console.apps.i2dsdh87.southeastasia.aroapp.io/"
+  },
+  "id": "/subscriptions/eef1686d-b711-49a8-b670-50f6677beea2/resourceGroups/aro-rg-lbercasi/providers/Microsoft.RedHatOpenShift/openShiftClusters/lbercasi",
+  "ingressProfiles": [
+    {
+      "ip": "20.212.18.240",
+      "name": "default",
+      "visibility": "Public"
+    }
+  ],
+  "location": "southeastasia",
+  "masterProfile": {
+    "diskEncryptionSetId": null,
+    "encryptionAtHost": "Disabled",
+    "subnetId": "/subscriptions/eef1686d-b711-49a8-b670-50f6677beea2/resourceGroups/aro-rg-lbercasi/providers/Microsoft.Network/virtualNetworks/aro-vnet/subnets/master-subnet",
+    "vmSize": "Standard_D8s_v3"
+  },
+  "name": "lbercasi",
+  "networkProfile": {
+    "podCidr": "10.128.0.0/14",
+    "serviceCidr": "172.30.0.0/16"
+  },
+  "provisioningState": "Succeeded",
+  "resourceGroup": "aro-rg-lbercasi",
+  "servicePrincipalProfile": {
+    "clientId": "46c8200e-aa28-4316-9d1e-1d4fdff2ba32",
+    "clientSecret": null
+  },
+  "systemData": {
+    "createdAt": "2022-09-29T05:59:02.382265+00:00",
+    "createdBy": "lbercasi@redhat.com",
+    "createdByType": "User",
+    "lastModifiedAt": "2022-09-29T05:59:02.382265+00:00",
+    "lastModifiedBy": "lbercasi@redhat.com",
+    "lastModifiedByType": "User"
+  },
+  "tags": null,
+  "type": "Microsoft.RedHatOpenShift/openShiftClusters",
+  "workerProfiles": [
+    {
+      "count": 1,
+      "diskEncryptionSetId": null,
+      "diskSizeGb": 128,
+      "encryptionAtHost": "Disabled",
+      "name": "lbercasi-fnd7j-worker-southeastasia1",
+      "subnetId": "/subscriptions/eef1686d-b711-49a8-b670-50f6677beea2/resourceGroups/aro-rg-lbercasi/providers/Microsoft.Network/virtualNetworks/aro-vnet/subnets/worker-subnet",
+      "vmSize": "Standard_D4s_v3"
+    },
+    {
+      "count": 1,
+      "diskEncryptionSetId": null,
+      "diskSizeGb": 128,
+      "encryptionAtHost": "Disabled",
+      "name": "lbercasi-fnd7j-worker-southeastasia2",
+      "subnetId": "/subscriptions/eef1686d-b711-49a8-b670-50f6677beea2/resourceGroups/aro-rg-lbercasi/providers/Microsoft.Network/virtualNetworks/aro-vnet/subnets/worker-subnet",
+      "vmSize": "Standard_D4s_v3"
+    },
+    {
+      "count": 1,
+      "diskEncryptionSetId": null,
+      "diskSizeGb": 128,
+      "encryptionAtHost": "Disabled",
+      "name": "lbercasi-fnd7j-worker-southeastasia3",
+      "subnetId": "/subscriptions/eef1686d-b711-49a8-b670-50f6677beea2/resourceGroups/aro-rg-lbercasi/providers/Microsoft.Network/virtualNetworks/aro-vnet/subnets/worker-subnet",
+      "vmSize": "Standard_D4s_v3"
+    }
+  ]
+}

@@ -3,6 +3,8 @@
 # Login to Azure 
 az login 
 
+az account show
+
 # set subscription to use 
 az account set --subscription <SUBSCRIPTION ID>
 
