@@ -8,11 +8,11 @@ locals {
    rg = azurerm_resource_group.aro.name
    loc = azurerm_resource_group.aro.location
    vnet = module.arovnet.vnet_name
-   name = "lbercasi"
+   name = "lbercasi01"
    domain = azurerm_dns_zone.aro.name
 }
 
-resource "null_resource" "aro02" {
+resource "null_resource" "lbercasi02" {
   count = var.deploy? 1:0
   provisioner "local-exec" {
    command ="az aro create -g ${local.rg} -n ${local.name} --vnet ${local.vnet} --master-subnet ${local.ms} --worker-subnet ${local.wk} --domain ${local.domain} --location ${local.loc} --pull-secret @pull-secret.txt"
