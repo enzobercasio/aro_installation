@@ -56,6 +56,10 @@ Unzip
 move or copy binary to a place in the path such as /usr/local/bin/
 mv $HOME/Downloads/terraform /usr/local/bin/
 
+via Package manager
+brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
+
 brew install git
 
 brew update && brew install azure-cli
