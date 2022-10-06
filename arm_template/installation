@@ -9,9 +9,9 @@ $rhosPullSecret= Get-Content .\pull-secret.txt -Raw # the pull secret text that 
 
 Define resource providers
 $resourceGroup="aro-rg"	     # the new resource group for the cluster
-$location="eastus"    		 # the location of the new ARO cluster
+$location="southeastasia"    		 # the location of the new ARO cluster
 $domain="mydomain"           # the domain prefix for the cluster  
-$aroClusterName="cluster"    # the name of the cluster
+$aroClusterName="lbercasi"    # the name of the cluster
 
 Create the new resource group 
 Register-AzResourceProvider -ProviderNamespace Microsoft.RedHatOpenShift
