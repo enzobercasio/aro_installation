@@ -28,8 +28,8 @@ az provider show -n Microsoft.Authorization --query registrationState
 
 # Set shell environment variables: 
 LOCATION=southeastasia                 # the location of your cluster
-RESOURCEGROUP=aro-rg-lbercasi           # the name of the resource group where you want to create your cluster
-CLUSTER=lbercasi                # the name of your cluster
+RESOURCEGROUP=aro-rg-lbercasi          # the name of the resource group where you want to create your cluster
+CLUSTER=lbercasi                       # the name of your cluster
 
 # create resource group
 
