@@ -27,9 +27,9 @@ az provider show -n Microsoft.Authorization --query registrationState
 # create a virtual network containing two empty subnets
 
 # Set shell environment variables: 
-LOCATION=eastus                 # the location of your cluster
-RESOURCEGROUP=aro-rg            # the name of the resource group where you want to create your cluster
-CLUSTER=clustername                # the name of your cluster
+LOCATION=southeastasia                 # the location of your cluster
+RESOURCEGROUP=aro-rg-lbercasi           # the name of the resource group where you want to create your cluster
+CLUSTER=lbercasi                # the name of your cluster
 
 # create resource group
 
