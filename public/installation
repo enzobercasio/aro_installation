@@ -114,6 +114,4 @@ az aro create --master-subnet \
               [--worker-vm-size]
 
   
-  
-  
-  
+ 
