@@ -3,19 +3,62 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 
 
-Define pull secret
+#Define pull secret
 $rhosPullSecret= Get-Content .\pull-secret.txt -Raw # the pull secret text that was obtained from the Red Hat OpenShift Cluster Manager website
 
 
-Define resource providers
-$resourceGroup="aro-rg"	     # the new resource group for the cluster
-$location="southeastasia"    		 # the location of the new ARO cluster
-$domain="mydomain"           # the domain prefix for the cluster  
-$aroClusterName="lbercasi"    # the name of the cluster
+#Define environment variables
+$resourceGroup="aro-rg-lbercasi"	     # the new resource group for the cluster
+$location="southeastasia"    		       # the location of the new ARO cluster
+$domain="mydomain"                     # the domain prefix for the cluster  
+$aroClusterName="lbercasi"             # the name of the cluster
 
-Create the new resource group 
+#Define resource providers
 Register-AzResourceProvider -ProviderNamespace Microsoft.RedHatOpenShift
 Register-AzResourceProvider -ProviderNamespace Microsoft.Compute
 Register-AzResourceProvider -ProviderNamespace Microsoft.Storage
 Register-AzResourceProvider -ProviderNamespace Microsoft.Authorization
+
+#Create new resource group
+New-AzResourceGroup -Name $resourceGroup -Location $location
+
+#Create new service principal and assign roles
+$suffix=Get-Random # random suffix for the Service Principal
+$spDisplayName="sp-$resourceGroup-$suffix"
+$azureADAppSp = New-AzADServicePrincipal -DisplayName $displayName -Role Contributor
+
+New-AzRoleAssignment -ObjectId $azureADAppSp.Id -RoleDefinitionName 'User Access Administrator' -ResourceGroupName $resourceGroup -ObjectType 'ServicePrincipal'
+New-AzRoleAssignment -ObJectId $azureADAppSp.Id -RoleDefinitionName 'Contributor' -ResourceGroupName $resourceGroup -ObjectType 'ServicePrincipal'
+
+#Get the service principal password
+$aadClientSecretDigest = ConvertTo-SecureString -String $azureADAppSp.PasswordCredentials.SecretText -AsPlainText -Force
+$aadClientSecretDigest = ConvertTo-SecureString -String $azureADAppSp.PasswordCredentials.SecretText -AsPlainText -Force
+
+#Get the service principal for the Openshift Resource provider
+$rpOpenShift =  Get-AzADServicePrincipal -DisplayName 'Azure Red Hat OpenShift RP' | Select-Object -ExpandProperty Id -Property Id -First 1
+
+#Check the parameters before deploying 
+# setup the parameters for the deployment
+$templateParams = @{  
+    domain = $domain
+    clusterName = $aroClusterName
+    location = $location
+    aadClientId = $azureADAppSp.AppId
+    aadObjectId = $azureADAppSp.Id
+    aadClientSecret = $aadClientSecretDigest 
+    rpObjectId = $rpOpenShift.Id
+    pullSecret = $rhosPullSecret
+}
+
+Write-Verbose (ConvertTo-Json $templateParams) -Verbose
+
+#Deploy the ARO cluster using ARM template
+
+New-AzResourceGroupDeployment -ResourceGroupName $resourceGroup @templateParams `
+    -TemplateParameterFile azuredeploy.json
+    
+
+#To clean up all resources created
+Remove-AzResourceGroup -Name $resourceGroup -Force
+
 
